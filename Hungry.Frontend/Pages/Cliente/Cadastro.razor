@@ -1,0 +1,28 @@
+@page "/cliente/cadastro"
+@using Hungry.Frontend.Services
+@inject NavigationManager Navigation 
+@inject PedidoService PedidoService
+@inject ClienteService ClienteService
+
+
+<MudPaper Class="p-4">
+    <MudText Typo="Typo.h5">Cadastro de Cliente</MudText>
+
+    <MudTextField Label="Nome" @bind-Value="_nome" />
+    <MudTextField Label="Telefone" @bind-Value="_telefone" />
+    <MudTextField Label="Email" @bind-Value="_email" />
+
+    <MudButton Class="mt-2" Color="Color.Primary" OnClick="CadastrarCliente">Cadastrar</MudButton>
+</MudPaper>
+
+@code {
+    private string _nome = "";
+    private string _telefone = "";
+    private string _email = "";
+
+    private async Task CadastrarCliente()
+    {
+        await ClienteService.CadastrarAsync(_nome, _telefone, _email);
+        Navigation.NavigateTo("/");
+    }
+}

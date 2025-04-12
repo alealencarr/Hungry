@@ -1,0 +1,40 @@
+@page "/pedidos/detalhes/{Id:guid}"
+@using Hungry.Frontend.Services
+@using Hungry.Frontend.Models
+@inject NavigationManager Navigation
+@inject PedidoService PedidoService
+
+<MudPaper Class="p-4">
+    <MudText Typo="Typo.h5">Detalhes do Pedido</MudText>
+
+    @if (Pedido != null)
+    {
+        <MudText>Cliente: @Pedido.ClienteNome</MudText>
+        <MudText>Total: @Pedido.Total.ToString("C")</MudText>
+        <StatusBadge Status="Pedido.Status" />
+
+        <MudButton Class="mt-2" Color="Color.Primary" OnClick="IrParaFinalizacao">
+            Finalizar Pedido
+        </MudButton>
+    }
+    else
+    {
+        <MudProgressCircular Indeterminate="true" />
+    }
+</MudPaper>
+
+@code {
+    [Parameter] public Guid Id { get; set; }
+    private PedidoDto? Pedido;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Pedido = await PedidoService.ObterPorIdAsync(Id);
+    }
+
+    private void IrParaFinalizacao()
+    {
+        if (Pedido is not null)
+            Navigation.NavigateTo($"/pedidos/finalizar/{Pedido.Id}");
+    }
+}

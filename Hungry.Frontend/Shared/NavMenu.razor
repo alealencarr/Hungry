@@ -1,0 +1,23 @@
+﻿@using MudBlazor
+<MudDrawer Open="true" Anchor="Anchor.Left" Elevation="1" Class="mud-theme-primary">
+    <MudDrawerHeader>
+        <MudText Typo="Typo.h6" Class="px-4 py-2">🍔 Hungry</MudText>
+    </MudDrawerHeader>
+
+    <MudNavMenu>
+        <MudNavLink Href="/" Match="NavLinkMatch.All">
+            <MudIcon Icon="@Icons.Material.Filled.Home" />
+            <span class="ml-2">Pedidos</span>
+        </MudNavLink>
+
+        <MudNavLink Href="/pedidos/criar">
+            <MudIcon Icon="@Icons.Material.Filled.AddShoppingCart" />
+            <span class="ml-2">Novo Pedido</span>
+        </MudNavLink>
+
+        <MudNavLink Href="/cliente/cadastro">
+            <MudIcon Icon="@Icons.Material.Filled.PersonAdd" />
+            <span class="ml-2">Cadastrar Cliente</span>
+        </MudNavLink>
+    </MudNavMenu>
+</MudDrawer>

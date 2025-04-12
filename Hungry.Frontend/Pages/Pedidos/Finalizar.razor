@@ -1,0 +1,30 @@
+@page "/pedidos/finalizar/{Id:guid}"
+@using Hungry.Frontend.Services
+@inject NavigationManager Navigation
+@using Hungry.Frontend.Models
+@inject PedidoService PedidoService
+
+<MudPaper Class="p-4">
+    <MudText Typo="Typo.h5">Finalizar Pedido</MudText>
+
+    <MudSelect T="MetodoPagamento" Label="Método de Pagamento" @bind-Value="_metodo">
+        <MudSelectItem Value="MetodoPagamento.Dinheiro">Dinheiro</MudSelectItem>
+        <MudSelectItem Value="MetodoPagamento.Cartao">Cartão</MudSelectItem>
+        <MudSelectItem Value="MetodoPagamento.Pix">Pix</MudSelectItem>
+    </MudSelect>
+
+    <MudButton Class="mt-2" Color="Color.Primary" OnClick="FinalizarPedido">Confirmar Pagamento</MudButton>
+</MudPaper>
+
+@code {
+    [Parameter] public Guid Id { get; set; }
+    private MetodoPagamento _metodo = MetodoPagamento.Dinheiro;
+
+    private async Task FinalizarPedido()
+    {
+        await PedidoService.PagarPedidoAsync(Id, _metodo);
+        await PedidoService.FinalizarPedidoAsync(Id);
+        Navigation.NavigateTo("/");
+    }
+}
+ 

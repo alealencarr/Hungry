@@ -1,0 +1,22 @@
+@using Hungry.Frontend.Models
+@inject NavigationManager Navigation
+
+<MudCard Class="m-2 p-4 hover:shadow-lg transition-all cursor-pointer" Style="width: 100%;" @onclick="() => IrParaDetalhes(Pedido.Id)">
+    <MudCardContent>
+        <div class="flex justify-between items-center mb-2">
+            <MudText Typo="Typo.h6">@(!string.IsNullOrEmpty(Pedido.ClienteNome) ? Pedido.ClienteNome : "Cliente não identificado")</MudText>
+            <StatusBadge Status="Pedido.Status" />
+        </div>
+        <MudText Typo="Typo.body1">Total: @Pedido.Total.ToString("C")</MudText>
+    </MudCardContent>
+</MudCard>
+
+@code {
+    [Parameter]
+    public PedidoDto Pedido { get; set; } = new();
+
+    private void IrParaDetalhes(Guid id)
+    {
+        Navigation.NavigateTo($"/pedidos/detalhes/{id}");
+    }
+}

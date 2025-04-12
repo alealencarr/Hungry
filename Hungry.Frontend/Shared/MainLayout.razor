@@ -1,0 +1,14 @@
+@inherits LayoutComponentBase
+@using MudBlazor
+
+<MudLayout>
+    <MudAppBar Color="Color.Primary" Elevation="4">
+        <MudText Typo="Typo.h6" Class="px-2">Hungry - Sistema de Pedidos</MudText>
+    </MudAppBar>
+
+    <NavMenu />
+
+    <MudMainContent Class="p-4">
+        @Body
+    </MudMainContent>
+</MudLayout>

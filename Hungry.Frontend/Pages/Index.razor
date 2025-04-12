@@ -1,0 +1,40 @@
+﻿@page "/"
+@using Hungry.Frontend.Services
+@using Hungry.Frontend.Models
+@inject PedidoService PedidoService
+
+<MudPaper Class="p-4">
+    <div class="flex justify-between items-center mb-4">
+        <MudText Typo="Typo.h5">Pedidos Recentes</MudText>
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="/pedidos/criar">
+            Novo Pedido
+        </MudButton>
+    </div>
+
+    @if (Pedidos is null)
+    {
+        <MudProgressCircular Indeterminate="true" />
+    }
+    else if (Pedidos.Count == 0)
+    {
+        <MudText>Não há pedidos cadastrados.</MudText>
+    }
+    else
+    {
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            @foreach (var pedido in Pedidos)
+            {
+                <PedidoCard Pedido="pedido" />
+            }
+        </div>
+    }
+</MudPaper>
+
+@code {
+    private List<PedidoDto>? Pedidos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Pedidos = await PedidoService.ObterTodosAsync();
+    }
+}

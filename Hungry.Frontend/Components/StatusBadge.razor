@@ -1,0 +1,22 @@
+@using Hungry.Frontend.Models
+@using MudBlazor
+
+<MudChip T="StatusPedidoDto" Color="@GetColor()" Variant="Variant.Filled" Class="px-4 py-1" Style="font-weight: bold;">
+    @Status.ToString()
+</MudChip>
+
+@code {
+    [Parameter]
+    public StatusPedidoDto Status { get; set; }
+
+    private Color GetColor()
+    {
+        return Status switch
+        {
+            StatusPedidoDto.Criado => Color.Info,
+            StatusPedidoDto.Pago => Color.Success,
+            StatusPedidoDto.Finalizado => Color.Primary,
+            _ => Color.Default
+        };
+    }
+}

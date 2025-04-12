@@ -1,0 +1,24 @@
+@page "/pedidos/criar"
+@using Hungry.Frontend.Services
+@inject NavigationManager Navigation
+@inject PedidoService PedidoService
+
+
+<MudPaper Class="p-4">
+    <MudText Typo="Typo.h5">Novo Pedido</MudText>
+
+    <MudTextField Label="Nome do Cliente (opcional)" @bind-Value="_nomeCliente" />
+
+    <MudButton Class="mt-2" Color="Color.Primary" OnClick="CriarPedido">Criar Pedido</MudButton>
+</MudPaper>
+
+@code {
+    private string _nomeCliente = "";
+
+    private async Task CriarPedido()
+    {
+        var pedidoId = await PedidoService.CriarPedidoAsync(new Hungry.Frontend.Models.PedidoDto { ClienteNome = _nomeCliente });
+        Navigation.NavigateTo($"/pedidos/detalhes/{pedidoId}");
+    }
+}
+ 
